@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -sf http://127.0.0.1:8001)",
+      "Bash(echo \"exit:$?\")",
+      "Bash(node -e \"console.log\\(require.resolve\\('playwright'\\)\\)\")",
+      "Bash(npx --no-install playwright --version)",
+      "Bash(npm run *)",
+      "Bash(npx vp *)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(awk '/^var SelectBubbleInput/,/^}, \"SelectBubbleInput\"/' /var/www/laravel/uptime/node_modules/@radix-ui/react-select/dist/index.js)",
+      "Bash(php artisan *)",
+      "Bash(curl -s http://127.0.0.1:5174/resources/js/pages/sites/show.tsx -o /tmp/show-compiled.check -w \"HTTP %{http_code}\\\\n\")",
+      "Read(//tmp/**)",
+      "Bash(python3 *)",
+      "Bash(curl *)",
+      "Bash(vendor/bin/phpstan analyse *)",
+      "Bash(vendor/bin/phpstan clear-result-cache *)",
+      "Bash(vendor/bin/pint --dirty --format agent)",
+      "Bash(crontab -l)",
+      "Read(//etc/cron.d/**)",
+      "Bash(composer test *)",
+      "Bash(vendor/bin/pint *)",
+      "Bash(composer ci:check)",
+      "Bash(openssl s_client -connect stacklab.sh:443 -servername stacklab.sh)",
+      "Bash(dpkg -l)",
+      "Read(//etc/ssl/certs/**)",
+      "Bash(php -i)",
+      "WebFetch(domain:expertoption.com)"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "laravel-boost"
+  ]
+}
