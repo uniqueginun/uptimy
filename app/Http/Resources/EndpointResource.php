@@ -15,6 +15,7 @@ class EndpointResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->resource->id,
             'location' => $this->resource->uri,
             'frequency' => $this->resource->interval,
             'last_check' => $this->resource->last_run_at,

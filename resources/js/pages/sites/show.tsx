@@ -15,7 +15,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
-import { store } from '@/actions/App/Http/Controllers/SiteEndpointController';
+import SiteEndpointController, {
+    store,
+} from '@/actions/App/Http/Controllers/SiteEndpointController';
 import {
     Select,
     SelectContent,
@@ -23,6 +25,15 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
+import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog';
 
 type Props = {
     site: Site;
@@ -36,7 +47,65 @@ function formatUptime(percentage: number | null): string {
     return percentage === null ? '—' : `${percentage}%`;
 }
 
-function EndpointsTable({ endpoints }: { endpoints: Endpoint[] }) {
+function DeleteEndpointButton({
+    domain,
+    endpoint,
+}: {
+    domain: string;
+    endpoint: Endpoint;
+}) {
+    return (
+        <Dialog>
+            <DialogTrigger asChild>
+                <Button variant="ghost" size="sm">
+                    Delete
+                </Button>
+            </DialogTrigger>
+            <DialogContent>
+                <DialogTitle>Delete this endpoint?</DialogTitle>
+                <DialogDescription>
+                    {endpoint.location} will stop being checked and its history
+                    will be permanently deleted. This cannot be undone.
+                </DialogDescription>
+
+                <Form
+                    {...SiteEndpointController.destroy.form([
+                        domain,
+                        endpoint.id,
+                    ])}
+                    options={{ preserveScroll: true }}
+                >
+                    {({ processing }) => (
+                        <DialogFooter className="gap-2">
+                            <DialogClose asChild>
+                                <Button variant="secondary">Cancel</Button>
+                            </DialogClose>
+
+                            <Button
+                                variant="destructive"
+                                disabled={processing}
+                                asChild
+                            >
+                                <button type="submit">
+                                    {processing && <Spinner />}
+                                    Delete
+                                </button>
+                            </Button>
+                        </DialogFooter>
+                    )}
+                </Form>
+            </DialogContent>
+        </Dialog>
+    );
+}
+
+function EndpointsTable({
+    domain,
+    endpoints,
+}: {
+    domain: string;
+    endpoints: Endpoint[];
+}) {
     if (endpoints.length === 0) {
         return (
             <p className="text-muted-foreground text-sm">No endpoints yet.</p>
@@ -56,12 +125,15 @@ function EndpointsTable({ endpoints }: { endpoints: Endpoint[] }) {
                         <th className="py-2 pr-4 font-medium">
                             Uptime (all time)
                         </th>
+                        <th className="py-2 pr-4 font-medium">
+                            <span className="sr-only">Actions</span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     {endpoints.map((endpoint) => (
                         <tr
-                            key={endpoint.location}
+                            key={endpoint.id}
                             className="border-b last:border-0"
                         >
                             <td className="py-2 pr-4">{endpoint.location}</td>
@@ -79,6 +151,12 @@ function EndpointsTable({ endpoints }: { endpoints: Endpoint[] }) {
                             </td>
                             <td className="py-2 pr-4">
                                 {formatUptime(endpoint.uptime)}
+                            </td>
+                            <td className="py-2 pr-4 text-right">
+                                <DeleteEndpointButton
+                                    domain={domain}
+                                    endpoint={endpoint}
+                                />
                             </td>
                         </tr>
                     ))}
@@ -201,7 +279,10 @@ export default function SitesShow({ site }: Props) {
                         <CardTitle>Endpoints</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <EndpointsTable endpoints={endpoints} />
+                        <EndpointsTable
+                            domain={site.domain as string}
+                            endpoints={endpoints}
+                        />
                     </CardContent>
                 </Card>
             </div>

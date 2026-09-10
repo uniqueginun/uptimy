@@ -1,6 +1,7 @@
 export type CheckStatus = 'up' | 'down' | 'error';
 
 export type Endpoint = {
+    id: number;
     location: string;
     frequency: number;
     last_check: string | null;
