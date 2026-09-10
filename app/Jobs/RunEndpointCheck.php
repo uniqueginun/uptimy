@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Http;
+use MinsentSdk\MiniSentry\Facades\MiniSentry;
 use Throwable;
 
 class RunEndpointCheck implements ShouldBeUnique, ShouldQueue
@@ -64,6 +65,8 @@ class RunEndpointCheck implements ShouldBeUnique, ShouldQueue
             // queue's own failed_jobs bookkeeping, so this is deliberately
             // not rethrown.
             $endpoint->registerError($e->getMessage());
+
+            MiniSentry::captureException($e, true);
         }
     }
 }
