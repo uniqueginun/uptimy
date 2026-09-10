@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8391899b8db87eb74cefae7c4faca815",
+    "content-hash": "5c5d63d3cfd2bd9e5eef5f58889fccd7",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -7237,6 +7237,122 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/v2.4.0"
             },
             "time": "2025-12-02T11:56:42+00:00"
+        },
+        {
+            "name": "uniqueginun/minsent-sdk",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/uniqueginun/mini-sentry-sdk.git",
+                "reference": "4fb480d3723a958d73c8640e70ae0aa399545d9e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/uniqueginun/mini-sentry-sdk/zipball/4fb480d3723a958d73c8640e70ae0aa399545d9e",
+                "reference": "4fb480d3723a958d73c8640e70ae0aa399545d9e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^12.0||^13.0",
+                "php": "^8.3"
+            },
+            "require-dev": {
+                "larastan/larastan": "^3.9",
+                "laravel/pao": "^1.0",
+                "laravel/pint": "^1.29",
+                "orchestra/testbench": "^10.0||^11.0",
+                "pestphp/pest": "^4.6||^5.0",
+                "pestphp/pest-plugin-laravel": "^4.1||^5.0",
+                "pestphp/pest-plugin-type-coverage": "^4.0||^5.0",
+                "phpstan/extension-installer": "^1.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MinsentSdk\\MiniSentry\\MiniSentryServiceProvider"
+                    ],
+                    "aliases": {
+                        "MiniSentry": "MinsentSdk\\MiniSentry\\Facades\\MiniSentry"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MinsentSdk\\MiniSentry\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "MinsentSdk\\MiniSentry\\Tests\\": "tests/",
+                    "Workbench\\App\\": "workbench/app/",
+                    "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+                    "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
+                }
+            },
+            "scripts": {
+                "post-autoload-dump": [
+                    "@clear",
+                    "@prepare"
+                ],
+                "prepare": [
+                    "@php vendor/bin/testbench package:discover --ansi"
+                ],
+                "build": [
+                    "@php vendor/bin/testbench workbench:build --ansi"
+                ],
+                "serve": [
+                    "Composer\\Config::disableProcessTimeout",
+                    "@build",
+                    "@php vendor/bin/testbench serve --ansi"
+                ],
+                "lint": [
+                    "vendor/bin/pint --parallel"
+                ],
+                "lint:check": [
+                    "vendor/bin/pint --parallel --test"
+                ],
+                "analyse": [
+                    "vendor/bin/phpstan analyse"
+                ],
+                "test:types": [
+                    "vendor/bin/pest --type-coverage --min=100"
+                ],
+                "test:unit": [
+                    "vendor/bin/pest --parallel"
+                ],
+                "test": [
+                    "@analyse",
+                    "@lint:check",
+                    "@test:types",
+                    "@test:unit"
+                ],
+                "clear": [
+                    "@php vendor/bin/testbench package:purge-skeleton --ansi"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "UniqueGinun",
+                    "email": "uniqueginun@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "SDK around my mini-sentry app",
+            "homepage": "https://github.com/uniqueginun/minsent-sdk",
+            "keywords": [
+                "laravel",
+                "minsent-sdk",
+                "uniqueginun"
+            ],
+            "support": {
+                "source": "https://github.com/uniqueginun/mini-sentry-sdk/tree/v1.0.3",
+                "issues": "https://github.com/uniqueginun/mini-sentry-sdk/issues"
+            },
+            "time": "2026-09-03T21:18:00+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
