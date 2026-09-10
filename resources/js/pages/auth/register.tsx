@@ -3,10 +3,11 @@ import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
-import { login } from '@/routes';
+import { login, terms } from '@/routes';
 import { store } from '@/routes/register';
 
 type Props = {
@@ -90,10 +91,36 @@ export default function Register({ passwordRules }: Props) {
                                 />
                             </div>
 
+                            <div className="grid gap-2">
+                                <div className="flex items-start gap-2">
+                                    <Checkbox
+                                        id="terms"
+                                        name="terms"
+                                        required
+                                        tabIndex={5}
+                                        className="mt-0.5"
+                                    />
+                                    <Label
+                                        htmlFor="terms"
+                                        className="text-muted-foreground text-sm leading-snug font-normal"
+                                    >
+                                        I agree to the{' '}
+                                        <TextLink
+                                            href={terms()}
+                                            target="_blank"
+                                            tabIndex={-1}
+                                        >
+                                            Terms and Conditions
+                                        </TextLink>
+                                    </Label>
+                                </div>
+                                <InputError message={errors.terms} />
+                            </div>
+
                             <Button
                                 type="submit"
                                 className="mt-2 w-full"
-                                tabIndex={5}
+                                tabIndex={6}
                                 data-test="register-user-button"
                             >
                                 {processing && <Spinner />}
@@ -103,7 +130,7 @@ export default function Register({ passwordRules }: Props) {
 
                         <div className="text-muted-foreground text-center text-sm">
                             Already have an account?{' '}
-                            <TextLink href={login()} tabIndex={6}>
+                            <TextLink href={login()} tabIndex={7}>
                                 Log in
                             </TextLink>
                         </div>

@@ -12,7 +12,7 @@ import AppLogoIcon from '@/components/app-logo-icon';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { dashboard, login, register } from '@/routes';
+import { dashboard, login, register, terms } from '@/routes';
 
 const steps = [
     {
@@ -77,7 +77,7 @@ export default function Welcome() {
     return (
         <>
             <Head title="Website & endpoint uptime monitoring" />
-            <div className="bg-background text-foreground min-h-screen">
+            <div className="dark bg-background text-foreground min-h-screen">
                 <header className="border-border/60 border-b">
                     <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
                         <div className="flex items-center gap-2">
@@ -328,6 +328,12 @@ export default function Welcome() {
                                     </Link>
                                 </>
                             )}
+                            <Link
+                                href={terms()}
+                                className="hover:text-foreground"
+                            >
+                                Terms
+                            </Link>
                         </nav>
                     </div>
                 </footer>
