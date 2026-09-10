@@ -54,6 +54,7 @@ class RunEndpointCheck implements ShouldBeUnique, ShouldQueue
         try {
             $response = Http::timeout(10)
                 ->connectTimeout(5)
+                ->withoutVerifying()
                 ->withOptions(['http_errors' => false])
                 ->get($endpoint->fullUrl());
 
